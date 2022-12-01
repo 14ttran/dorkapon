@@ -1,0 +1,230 @@
+#:kivy 1.0
+
+# SIZING
+#:set small_button_height dp(20)
+#:set small_button_width dp(50)
+#:set medium_button_height dp(30)
+#:set medium_button_width dp(40)
+#:set small_button_padding_x dp(50)
+#:set small_button_padding_y dp(0)
+#:set four_button_padding_x dp(30)
+#:set four_button_padding_y dp(5)
+
+# COLORS
+#:set label_color 0.2, 0.4, 0.3, 1
+#:set transparent_green 0.2, 0.4, 0.3, 0.8
+#:set opaque_white 1, 1, 1, 1
+#:set control_button_color transparent_green
+
+<Controller>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'images/dokapon_blur.jpg'
+    rows: 4
+    # size_hint: (0.8, 0.8)
+    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    BoxLayout:
+        size_hint: (1.0, 0.15)
+        # spacing: (self.parent.width / 2)  # spacing algo for buttons
+        # padding: (small_button_padding_x, small_button_padding_y)
+        FloatLayout:
+            # canvas.before:
+            #     Color:
+            #         rgba: 0, 0, 1, 1
+            #     Rectangle:
+            #         pos: self.pos
+            #         size: self.size
+            MDRoundFlatButton:
+                id: back
+                pos_hint: {"center_x": 0.2, "center_y": 0.5}
+                text: "BACK"
+                font_size: "12sp"
+                text_color: control_button_color
+                line_color: control_button_color
+                md_bg_color: opaque_white
+        FloatLayout:
+            MDRoundFlatButton:
+                id: start
+                pos_hint: {"center_x": 0.8, "center_y": 0.5}
+                text: "START"
+                font_size: "12sp"
+                text_color: control_button_color
+                line_color: control_button_color
+                md_bg_color: opaque_white
+    BoxLayout:
+        size_hint: (1.0, 0.6)
+        spacing: (self.parent.width / 3)  # spacing algo for layouts
+        padding: (four_button_padding_x, four_button_padding_y)
+        FloatLayout:
+            size_hint: (1.0, 0.8)
+            pos_hint: {"center_y": 0.5}
+            # canvas.before:
+            #     Color:
+            #         rgba: 0, 0, 1, 1
+            #     Rectangle:
+            #         pos: self.pos
+            #         size: self.size
+            Dpad:
+                id: dpad
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        FloatLayout:
+            size_hint: (1.0, 0.8)
+            pos_hint: {"center_y": 0.5}
+            # canvas.before:
+            #     Color:
+            #         rgba: 0, 0, 1, 1
+            #     Rectangle:
+            #         pos: self.pos
+            #         size: self.size
+            Abxy:  
+                id: abxy
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    BoxLayout:
+        # orientation: "vertical"
+        size_hint: (1.0, 0.1)
+        # padding: dp(1)
+        # adaptive_height: True
+        # Label:
+        #     text: "IP Address"
+        #     size_hint: (0.3, 1.0)
+        #     # on_press: self.parent.parent._ip = ip.text
+        #     canvas.before:
+        #         Color:
+        #             rgba: label_color
+        #         Rectangle:
+        #             pos: self.pos
+        #             size: self.size
+        MDTextField:
+            id: ip
+            pos_hint: {"center_y": 0.5}
+            size_hint_x: None
+            width: dp(130)
+            hint_text: "IP Address"
+            multiline: False
+            on_text_validate: self.parent.parent._ip = self.text
+        MDTextField:
+            id: port
+            size_hint_x: None
+            width: dp(100)
+            pos_hint: {"center_y": 0.5}
+            hint_text: "Port"
+            multiline: False
+            on_text_validate: self.parent.parent._port = self.text
+
+    # BoxLayout:
+    #     size_hint: (1.0, 0.1)
+    #     padding: dp(5)
+    #     Label:
+    #         text: "Port"
+    #         size_hint: (0.3, 1.0)
+    #         canvas.before:
+    #             Color:
+    #                 rgba: label_color
+    #             Rectangle:
+    #                 pos: self.pos
+    #                 size: self.size
+    #     TextInput:
+    #         id: port
+    #         multiline: False
+    #         on_text_validate: self.parent.parent._port = self.text
+        
+
+<Dpad>:
+    cols: 3
+    rows: 3
+    Label:
+        # canvas.before:
+        #     Color:
+        #         rgba: 0, 1, 0, 1
+        #     Rectangle:
+        #         pos: self.pos
+        #         size: self.size
+    FloatLayout:
+        MDIconWithText:
+            id: top
+            icon: "arrow-up-bold"
+            text: "up"
+            md_bg_color: control_button_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    Label:
+        # canvas.before:
+        #     Color:
+        #         rgba: 0, 1, 0, 1
+        #     Rectangle:
+        #         pos: self.pos
+        #         size: self.size
+    FloatLayout:
+        MDIconWithText:
+            id: left
+            icon: "arrow-left-bold"
+            text: "left"
+            md_bg_color: control_button_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    Label:
+    FloatLayout:
+        MDIconWithText:
+            id: right
+            icon: "arrow-right-bold"
+            text: "right"
+            md_bg_color: control_button_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    Label:
+    FloatLayout:
+        MDIconWithText:
+            id: bottom
+            icon: "arrow-down-bold"
+            text: "down"
+            md_bg_color: control_button_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    Label:
+
+<Abxy>:
+    cols: 3
+    rows: 3
+    Label:
+    FloatLayout:
+        MDIconWithText:
+            id: top
+            icon: "alpha-y"
+            text: "y"
+            md_bg_color: control_button_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    Label:
+    FloatLayout:
+        MDIconWithText:
+            id: left
+            icon: "alpha-x"
+            text: "x"
+            md_bg_color: control_button_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    Label:
+    FloatLayout:
+        MDIconWithText:
+            id: right
+            icon: "alpha-a"
+            text: "a"
+            md_bg_color: control_button_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    Label:
+    FloatLayout:
+        MDIconWithText:
+            id: bottom
+            icon: "alpha-b"
+            text: "b"
+            md_bg_color: control_button_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    Label:
+
+<SmallButton>:
+    size: (small_button_width, small_button_height)
+    size_hint: (None, None)
+
+<MediumButton>:
+    size: (medium_button_width, medium_button_height)
+    size_hint: (None, None)
+
+<MDIconWithText>:
+    theme_text_color: "Custom"
+    text_color: opaque_white
